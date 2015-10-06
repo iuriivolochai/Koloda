@@ -238,7 +238,7 @@ public class DraggableCardView: UIView {
         delegate?.cardTapped(self)
     }
     
-    public func updateOverlayFinilized (mode: OverlayMode)
+    public func updateOverlayFinilized (mode: OverlayMode,  completion: () -> ())
     {
         if let overlayView = self.overlayView {
             overlayView.overlayState = mode
@@ -249,11 +249,16 @@ public class DraggableCardView: UIView {
             
             let yCenterOffset : CGFloat  = finilizeSwipeYCenterOffset
             
-            UIView .animateWithDuration( 0.2, animations: {
-                self.transform = scaleTransform
-                self.center = CGPoint(x: self.center.x + xCenterOffset, y: self.center.y + yCenterOffset)
-                overlayView.alpha = 1.0
+            UIView .animateWithDuration( 0.2, animations: { () -> Void in
+                    self.transform = scaleTransform
+                    self.center = CGPoint(x: self.center.x + xCenterOffset, y: self.center.y + yCenterOffset)
+                    overlayView.alpha = 1.0
+                },
+                completion: { (Bool finished) -> Void in
+                    
+                 completion()
             })
+
         }
 
     }

@@ -21,7 +21,7 @@ private let backgroundCardsTopMargin: CGFloat = 4.0
 private let backgroundCardsScalePercent: CGFloat = 0.95
 private let backgroundCardsLeftMargin: CGFloat = 8.0
 private let backgroundCardFrameAnimationDuration: NSTimeInterval = 0.2
-private let swipeFinalizationDelayDefault : NSTimeInterval = 0.6
+private let swipeFinalizationDelayDefault : NSTimeInterval = 0.4
 
 //Opacity values
 private let defaultAlphaValueOpaque: CGFloat = 1.0
@@ -523,24 +523,27 @@ public class KolodaView: UIView, DraggableCardDelegate {
         if let frontCard: DraggableCardView = visibleCards.first
         {
       
+        var overleyMode : OverlayMode = OverlayMode.None
+            
         switch direction {
         case SwipeResultDirection.None:
             return
             
         case SwipeResultDirection.Left:
           
-            frontCard.updateOverlayFinilized(OverlayMode.Left)
+            overleyMode = OverlayMode.Left
             break
         
         case SwipeResultDirection.Right:
          
-            frontCard.updateOverlayFinilized(OverlayMode.Right)
+            overleyMode = OverlayMode.Right
             break
             
             }
             
-            frontCard.userInteractionEnabled = false
-            
+        frontCard.userInteractionEnabled = false
+        
+        frontCard.updateOverlayFinilized(overleyMode, completion: { () -> () in
             let delayInSeconds = self.swipeFinalizationDelay
             let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
             
@@ -548,6 +551,9 @@ public class KolodaView: UIView, DraggableCardDelegate {
                 self.swipe(direction)
                 frontCard.userInteractionEnabled = true
             }
+
+        })
+            
         }
     }
     
