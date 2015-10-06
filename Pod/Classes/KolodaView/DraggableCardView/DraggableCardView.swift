@@ -21,8 +21,11 @@ protocol DraggableCardDelegate: class {
 //Drag animation constants
 private let rotationMax: CGFloat = 1.0
 private let defaultRotationAngle = CGFloat(M_PI) / 10.0
+public  let finilizeRotationAngle = CGFloat(M_PI) / 16.0
 private let scaleMin: CGFloat = 0.8
 public let cardSwipeActionAnimationDuration: NSTimeInterval  = 0.4
+public let finilizeSwipeXCenterOffset : CGFloat = 100.0
+public let finilizeSwipeYCenterOffset : CGFloat = 36.0
 
 //Reset animation constants
 private let cardResetAnimationSpringBounciness: CGFloat = 10.0
@@ -233,6 +236,26 @@ public class DraggableCardView: UIView {
     
     func tapRecognized(recogznier: UITapGestureRecognizer) {
         delegate?.cardTapped(self)
+    }
+    
+    public func updateOverlayFinilized (mode: OverlayMode)
+    {
+        if let overlayView = self.overlayView {
+            overlayView.overlayState = mode
+            let scale : CGFloat = 0.9
+            let rotationTransform =  (mode == OverlayMode.Right) ? CGAffineTransformMakeRotation(finilizeRotationAngle) : CGAffineTransformMakeRotation(-finilizeRotationAngle)
+            let scaleTransform = CGAffineTransformScale(rotationTransform, scale, scale)
+            let xCenterOffset : CGFloat  = (mode == OverlayMode.Right) ? finilizeSwipeXCenterOffset : -finilizeSwipeXCenterOffset
+            
+            let yCenterOffset : CGFloat  = finilizeSwipeYCenterOffset
+            
+            UIView .animateWithDuration( 0.2, animations: {
+                self.transform = scaleTransform
+                self.center = CGPoint(x: self.center.x + xCenterOffset, y: self.center.y + yCenterOffset)
+                overlayView.alpha = 1.0
+            })
+        }
+
     }
     
     //MARK: Private

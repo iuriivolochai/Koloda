@@ -21,6 +21,7 @@ private let backgroundCardsTopMargin: CGFloat = 4.0
 private let backgroundCardsScalePercent: CGFloat = 0.95
 private let backgroundCardsLeftMargin: CGFloat = 8.0
 private let backgroundCardFrameAnimationDuration: NSTimeInterval = 0.2
+private let swipeFinalizationDelayDefault : NSTimeInterval = 0.6
 
 //Opacity values
 private let defaultAlphaValueOpaque: CGFloat = 1.0
@@ -84,6 +85,7 @@ public class KolodaView: UIView, DraggableCardDelegate {
     private(set) public var countOfCards = 0
     
     public var countOfVisibleCards = defaultCountOfVisibleCards
+    
     private var visibleCards = [DraggableCardView]()
     private var animating = false
     private var configured = false
@@ -91,6 +93,7 @@ public class KolodaView: UIView, DraggableCardDelegate {
     public var alphaValueOpaque: CGFloat = defaultAlphaValueOpaque
     public var alphaValueTransparent: CGFloat = defaultAlphaValueTransparent
     public var alphaValueSemiTransparent: CGFloat = defaultAlphaValueSemiTransparent
+    public var swipeFinalizationDelay: NSTimeInterval = swipeFinalizationDelayDefault
     
     //MARK: Lifecycle
     required public init?(coder aDecoder: NSCoder) {
@@ -511,6 +514,40 @@ public class KolodaView: UIView, DraggableCardDelegate {
         } else {
             
             reconfigureCards()
+        }
+    }
+    
+    
+    public func swipeWithFinalization (direction: SwipeResultDirection)
+    {
+        if let frontCard: DraggableCardView = visibleCards.first
+        {
+      
+        switch direction {
+        case SwipeResultDirection.None:
+            return
+            
+        case SwipeResultDirection.Left:
+          
+            frontCard.updateOverlayFinilized(OverlayMode.Left)
+            break
+        
+        case SwipeResultDirection.Right:
+         
+            frontCard.updateOverlayFinilized(OverlayMode.Right)
+            break
+            
+            }
+            
+            frontCard.userInteractionEnabled = false
+            
+            let delayInSeconds = self.swipeFinalizationDelay
+            let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
+            
+            dispatch_after(popTime, dispatch_get_main_queue()) {
+                self.swipe(direction)
+                frontCard.userInteractionEnabled = true
+            }
         }
     }
     
