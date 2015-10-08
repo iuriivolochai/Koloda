@@ -2,8 +2,8 @@
 
 Pod::Spec.new do |s|
 s.name             = "VIKoloda"
-s.version          = "2.0.2"
-s.summary          = "KolodaView is a class designed to simplify the implementation of Tinder like cards on iOS. "
+s.version          = "2.0.1"
+s.summary          = "Fork for KolodaView framework "
 
 s.homepage         = "https://github.com/iuriivolochai/Koloda"
 s.license          = 'MIT'
@@ -17,4 +17,5 @@ s.source_files = 'Pod/Classes/**/*'
 
 s.frameworks = 'UIKit'
 s.dependency 'pop', '~> 1.0'
+
 end

@@ -42,7 +42,7 @@
 		8C6AF94B3192C604963C53B3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		A8A21A7254497CF03F2BBEA3 /* Pods-Koloda_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Koloda_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Koloda_Tests/Pods-Koloda_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		CF2C9E50C19A9188464AE19E /* Pods-Koloda_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Koloda_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Koloda_Example/Pods-Koloda_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		D6781607B5327BAF503C32E3 /* Koloda.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Koloda.podspec; path = ../Koloda.podspec; sourceTree = "<group>"; };
+		D6781607B5327BAF503C32E3 /* VIKoloda.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = VIKoloda.podspec; path = ../VIKoloda.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +107,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				D6781607B5327BAF503C32E3 /* Koloda.podspec */,
+				D6781607B5327BAF503C32E3 /* VIKoloda.podspec */,
 				8C6AF94B3192C604963C53B3 /* README.md */,
 				5C6DBB80685DABAE785B8715 /* LICENSE */,
 			);
