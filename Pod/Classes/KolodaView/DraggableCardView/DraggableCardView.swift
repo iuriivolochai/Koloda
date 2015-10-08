@@ -24,8 +24,8 @@ private let defaultRotationAngle = CGFloat(M_PI) / 10.0
 public  let finilizeRotationAngle = CGFloat(M_PI) / 16.0
 private let scaleMin: CGFloat = 0.8
 public let cardSwipeActionAnimationDuration: NSTimeInterval  = 0.4
-public let finilizeSwipeXCenterOffset : CGFloat = 100.0
-public let finilizeSwipeYCenterOffset : CGFloat = 36.0
+public let defaultFinilizeSwipeXCenterOffset : CGFloat = 100.0
+public let defaultFinilizeSwipeYCenterOffset : CGFloat = 10.0
 
 //Reset animation constants
 private let cardResetAnimationSpringBounciness: CGFloat = 10.0
@@ -49,6 +49,9 @@ public class DraggableCardView: UIView {
     private var yDistanceFromCenter: CGFloat = 0.0
     private var actionMargin: CGFloat = 0.0
     private var firstTouch = true
+    
+    public var finilizeSwipeXCenterOffset: CGFloat = defaultFinilizeSwipeXCenterOffset
+    public var finilizeSwipeYCenterOffset: CGFloat = defaultFinilizeSwipeYCenterOffset
     
     //MARK: Lifecycle
     init() {
