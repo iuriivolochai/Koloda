@@ -15,8 +15,14 @@ public enum SwipeResultDirection {
     case Right
 }
 
+public enum LayoutCardsStackType {
+    case Top
+    case Bottom
+}
+
+
 //Default values
-private let defaultCountOfVisibleCards = 3
+private let defaultCountOfVisibleCards = 4
 private let backgroundCardsTopMargin: CGFloat = 4.0
 private let backgroundCardsScalePercent: CGFloat = 0.95
 private let backgroundCardsLeftMargin: CGFloat = 8.0
@@ -42,6 +48,9 @@ private let kolodaAppearAlphaAnimationName = "kolodaAppearAlphaAnimation"
 private let kolodaAppearAlphaAnimationFromValue: CGFloat = 0.0
 private let kolodaAppearAlphaAnimationToValue: CGFloat = 1.0
 private let kolodaAppearAlphaAnimationDuration: NSTimeInterval = 0.8
+
+//Layout constants
+private let defaultLayoutCardsStackType: LayoutCardsStackType = LayoutCardsStackType.Top
 
 
 public protocol KolodaViewDataSource:class {
@@ -94,6 +103,7 @@ public class KolodaView: UIView, DraggableCardDelegate {
     public var alphaValueTransparent: CGFloat = defaultAlphaValueTransparent
     public var alphaValueSemiTransparent: CGFloat = defaultAlphaValueSemiTransparent
     public var swipeFinalizationDelay: NSTimeInterval = swipeFinalizationDelayDefault
+    public var layoutCardsStackType: LayoutCardsStackType = defaultLayoutCardsStackType
     
     //MARK: Lifecycle
     required public init?(coder aDecoder: NSCoder) {
@@ -139,6 +149,13 @@ public class KolodaView: UIView, DraggableCardDelegate {
         subscribeForNotifications()
     }
     
+    //Overide method to change animation setup
+    public func configureDraggableCardAnimationParameters (cardView: DraggableCardView )
+    {
+        cardView.finilizeSwipeXCenterOffset = 100.0;
+        cardView.finilizeSwipeYCenterOffset = 8.0;
+    }
+    
     private func setupDeck() {
         countOfCards = Int(dataSource!.kolodaNumberOfCards(self))
         
@@ -157,6 +174,8 @@ public class KolodaView: UIView, DraggableCardDelegate {
                     let overlayView = overlayViewForCardAtIndex(UInt(index))
                     
                     nextCardView.configure(nextCardContentView, overlayView: overlayView)
+                    self.configureDraggableCardAnimationParameters( nextCardView)
+                    
                     visibleCards.append(nextCardView)
                     index == 0 ? addSubview(nextCardView) : insertSubview(nextCardView, belowSubview: visibleCards[index - 1])
                 }
@@ -170,8 +189,15 @@ public class KolodaView: UIView, DraggableCardDelegate {
         }
     }
     
-    //MARK: Frames
     public func frameForCardAtIndex(index: UInt) -> CGRect {
+        
+        let currentLayout =  self.layoutCardsStackType
+        let frame = (currentLayout == LayoutCardsStackType.Top) ?  self.topLayoutFrameForCardAtIndex(index) : self.bottomLayoutFrameForCardAtIndex(index)
+        return frame
+    }
+    
+
+    public func topLayoutFrameForCardAtIndex(index: UInt) -> CGRect {
         let bottomOffset:CGFloat = 0
         let topOffset = backgroundCardsTopMargin * CGFloat(self.countOfVisibleCards - 1)
         let xOffset = backgroundCardsLeftMargin * CGFloat(index)
@@ -185,6 +211,21 @@ public class KolodaView: UIView, DraggableCardDelegate {
         
         return frame
     }
+
+   
+    public func bottomLayoutFrameForCardAtIndex(index: UInt) -> CGRect {
+        let bottomOffset:CGFloat = 0
+        let topOffset = backgroundCardsTopMargin *  CGFloat(index)
+        let xOffset = backgroundCardsLeftMargin * CGFloat(index)
+        let scalePercent = backgroundCardsScalePercent
+        let width = CGRectGetWidth(self.frame) * pow(scalePercent, CGFloat(index))
+        let height = (CGRectGetHeight(self.frame) - bottomOffset - topOffset) * pow(scalePercent, CGFloat(index))
+        let yOffset  = CGFloat(max(self.countOfVisibleCards - Int(index), 0)) * backgroundCardsTopMargin
+        let frame = CGRect(x: xOffset, y: yOffset, width: width, height: height)
+        
+        return frame
+    }
+
     
     private func moveOtherCardsWithFinishPercent(percent: CGFloat) {
         if visibleCards.count > 1 {
