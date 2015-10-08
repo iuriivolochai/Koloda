@@ -23,9 +23,9 @@ public enum LayoutCardsStackType {
 
 //Default values
 private let defaultCountOfVisibleCards = 4
-private let backgroundCardsTopMargin: CGFloat = 4.0
+private let defaultBackgroundCardsTopMargin: CGFloat = 4.0
 private let backgroundCardsScalePercent: CGFloat = 0.95
-private let backgroundCardsLeftMargin: CGFloat = 8.0
+private let defaultBackgroundCardsLeftMargin: CGFloat = 8.0
 private let backgroundCardFrameAnimationDuration: NSTimeInterval = 0.2
 
 //Opacity values
@@ -48,7 +48,7 @@ private let kolodaAppearAlphaAnimationFromValue: CGFloat = 0.0
 private let kolodaAppearAlphaAnimationToValue: CGFloat = 1.0
 private let kolodaAppearAlphaAnimationDuration: NSTimeInterval = 0.8
 
-// Affects chose animation effect when user taps Yes/No
+// Affects choose animation effect when user taps Yes/No
 private let defaultFinilizeAnimationSwipeXCenterOffset: CGFloat = 100.0
 private let defaultFinilizeAnimationSwipeYCenterOffset: CGFloat = 8.0
 private let swipeFinalizationDelayDefault : NSTimeInterval = 0.4
@@ -107,6 +107,10 @@ public class KolodaView: UIView, DraggableCardDelegate {
     public var alphaValueOpaque: CGFloat = defaultAlphaValueOpaque
     public var alphaValueTransparent: CGFloat = defaultAlphaValueTransparent
     public var alphaValueSemiTransparent: CGFloat = defaultAlphaValueSemiTransparent
+    
+    public var backgroundCardsTopMargin: CGFloat = defaultBackgroundCardsTopMargin
+    public var backgroundCardsLeftMargin: CGFloat = defaultBackgroundCardsLeftMargin
+    
     public var swipeFinalizationDelay: NSTimeInterval = swipeFinalizationDelayDefault
     public var layoutCardsStackType: LayoutCardsStackType = defaultLayoutCardsStackType
     public var finilizeAnimationSwipeXCenterOffset: CGFloat = defaultFinilizeAnimationSwipeXCenterOffset
