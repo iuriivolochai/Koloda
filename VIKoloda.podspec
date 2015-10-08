@@ -8,7 +8,7 @@ s.summary          = "Fork for KolodaView framework "
 s.homepage         = "https://github.com/iuriivolochai/Koloda"
 s.license          = 'MIT'
 s.author           = "Iurii Volochai"
-s.source           = { :git => "https://github.com/iuriivolochai/Koloda.git",}
+s.source           = {:git => "https://github.com/iuriivolochai/Koloda.git"}
 
 s.platform     = :ios, '8.0'
 s.requires_arc = true
