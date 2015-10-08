@@ -20,6 +20,12 @@ class ViewController: UIViewController, KolodaViewDataSource, KolodaViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        kolodaView.layoutCardsStackType = LayoutCardsStackType.Bottom;
+        kolodaView.finilizeAnimationSwipeXCenterOffset = 100.0
+        kolodaView.finilizeAnimationSwipeYCenterOffset = 6.0
+        kolodaView.backgroundCardsLeftMargin = 8.0
+        kolodaView.backgroundCardsTopMargin = 4.0
+        
         kolodaView.dataSource = self
         kolodaView.delegate = self
         
@@ -29,11 +35,11 @@ class ViewController: UIViewController, KolodaViewDataSource, KolodaViewDelegate
     
     //MARK: IBActions
     @IBAction func leftButtonTapped() {
-        kolodaView?.swipe(SwipeResultDirection.Left)
+        kolodaView?.swipeWithFinalization(SwipeResultDirection.Left)
     }
     
     @IBAction func rightButtonTapped() {
-        kolodaView?.swipe(SwipeResultDirection.Right)
+        kolodaView?.swipeWithFinalization(SwipeResultDirection.Right)
     }
     
     @IBAction func undoButtonTapped() {
