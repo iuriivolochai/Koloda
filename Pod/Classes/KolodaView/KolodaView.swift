@@ -27,7 +27,6 @@ private let backgroundCardsTopMargin: CGFloat = 4.0
 private let backgroundCardsScalePercent: CGFloat = 0.95
 private let backgroundCardsLeftMargin: CGFloat = 8.0
 private let backgroundCardFrameAnimationDuration: NSTimeInterval = 0.2
-private let swipeFinalizationDelayDefault : NSTimeInterval = 0.4
 
 //Opacity values
 private let defaultAlphaValueOpaque: CGFloat = 1.0
@@ -48,6 +47,12 @@ private let kolodaAppearAlphaAnimationName = "kolodaAppearAlphaAnimation"
 private let kolodaAppearAlphaAnimationFromValue: CGFloat = 0.0
 private let kolodaAppearAlphaAnimationToValue: CGFloat = 1.0
 private let kolodaAppearAlphaAnimationDuration: NSTimeInterval = 0.8
+
+// Affects chose animation effect when user taps Yes/No
+private let defaultFinilizeAnimationSwipeXCenterOffset: CGFloat = 100.0
+private let defaultFinilizeAnimationSwipeYCenterOffset: CGFloat = 8.0
+private let swipeFinalizationDelayDefault : NSTimeInterval = 0.4
+
 
 //Layout constants
 private let defaultLayoutCardsStackType: LayoutCardsStackType = LayoutCardsStackType.Top
@@ -104,6 +109,8 @@ public class KolodaView: UIView, DraggableCardDelegate {
     public var alphaValueSemiTransparent: CGFloat = defaultAlphaValueSemiTransparent
     public var swipeFinalizationDelay: NSTimeInterval = swipeFinalizationDelayDefault
     public var layoutCardsStackType: LayoutCardsStackType = defaultLayoutCardsStackType
+    public var finilizeAnimationSwipeXCenterOffset: CGFloat = defaultFinilizeAnimationSwipeXCenterOffset
+    public var finilizeAnimationSwipeYCenterOffset: CGFloat = defaultFinilizeAnimationSwipeYCenterOffset
     
     //MARK: Lifecycle
     required public init?(coder aDecoder: NSCoder) {
@@ -152,8 +159,8 @@ public class KolodaView: UIView, DraggableCardDelegate {
     //Overide method to change animation setup
     public func configureDraggableCardAnimationParameters (cardView: DraggableCardView )
     {
-        cardView.finilizeSwipeXCenterOffset = 100.0;
-        cardView.finilizeSwipeYCenterOffset = 8.0;
+        cardView.finilizeSwipeXCenterOffset = finilizeAnimationSwipeXCenterOffset;
+        cardView.finilizeSwipeYCenterOffset = finilizeAnimationSwipeYCenterOffset;
     }
     
     private func setupDeck() {
