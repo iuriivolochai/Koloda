@@ -16,6 +16,6 @@ s.requires_arc = true
 s.source_files = 'Pod/Classes/**/*'
 
 s.frameworks = 'UIKit'
-s.dependency 'pop', '~> 1.0'
+s.dependency 'pop', :git => 'https://github.com/vkaramov/pop.git'
 
 end
